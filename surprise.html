@@ -5,53 +5,75 @@
 <title>Happy Birthday Sunanda ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
 body{
   margin:0;
   height:100vh;
-  background:linear-gradient(120deg,#ff758c,#ff7eb3);
+  background:radial-gradient(circle at top,#ffd6e8,#ff9aa2,#ff6f91);
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
+  font-family:'Quicksand',sans-serif;
   color:#fff;
-  font-family:'Poppins',sans-serif;
-  text-align:center;
   overflow:hidden;
 }
+
+/* glass card */
+.card{
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(14px);
+  border-radius:32px;
+  padding:50px 40px;
+  text-align:center;
+  max-width:650px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+  animation:fadeIn 1.3s cubic-bezier(.19,1,.22,1);
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(50px) scale(.9)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
 h1{
+  font-family:'Pacifico',cursive;
   font-size:4rem;
-  margin-bottom:20px;
+  margin-bottom:25px;
+  text-shadow:0 10px 30px rgba(0,0,0,.35);
 }
+
 p{
-  font-size:1.2rem;
-  max-width:600px;
+  font-size:1.25rem;
+  line-height:1.9;
 }
+
+/* hearts */
 .heart{
   position:absolute;
   bottom:-20px;
-  font-size:20px;
-  animation:float 6s linear infinite;
+  font-size:22px;
+  animation:float 7s linear infinite;
 }
 @keyframes float{
   from{transform:translateY(0);opacity:1}
   to{transform:translateY(-120vh);opacity:0}
 }
 
-/* music button */
+/* music */
 #musicBtn{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#fff;
-  color:#ff758c;
+  bottom:22px;
+  right:22px;
+  width:58px;
+  height:58px;
   border:none;
   border-radius:50%;
-  width:55px;
-  height:55px;
-  font-size:22px;
+  background:#fff;
+  color:#ff5f7e;
+  font-size:24px;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,.3);
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 </style>
 </head>
@@ -64,12 +86,14 @@ p{
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8b1f7d4e.mp3">
 </audio>
 
-<h1>Happy Birthday Sunanda ❤️</h1>
-<p>
-You are my cutie, my puchku, my safe place 🥺  
-Today is special because **YOU** are special 💖  
-Always smiling. Always loved.
-</p>
+<div class="card">
+  <h1>Happy Birthday Sunanda ❤️</h1>
+  <p>
+    You are not special just today…<br><br>
+    You are special every single day 🥺<br><br>
+    My cutie. My puchku. My favourite feeling 💖
+  </p>
+</div>
 
 <script>
 // hearts
@@ -79,8 +103,8 @@ setInterval(()=>{
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},300);
+  setTimeout(()=>h.remove(),7000);
+},350);
 
 // music toggle
 const music=document.getElementById("bgm");
