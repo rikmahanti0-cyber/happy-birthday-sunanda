@@ -2,113 +2,147 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>For Sunanda ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Sunanda ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: 'Poppins', sans-serif;
-}
 body{
-  background: linear-gradient(120deg,#ff758c,#ff7eb3);
-  color:white;
-  overflow-x:hidden;
-}
-section{
-  min-height:100vh;
+  margin:0;
+  height:100vh;
+  background:linear-gradient(120deg,#ff9a9e,#fad0c4);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  font-family:'Poppins',sans-serif;
+  color:#fff;
   text-align:center;
-  padding:30px;
+  overflow:hidden;
 }
-h1{
-  font-size:3rem;
+h1{margin-bottom:30px}
+
+.gifts{
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
-p{
-  font-size:1.2rem;
-  max-width:600px;
+.gift{
+  width:120px;
+  height:120px;
+  background:#ff5f6d;
+  border-radius:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:50px;
+  cursor:pointer;
+  position:relative;
+  transition:.3s;
 }
-.fade{
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s ease;
+.gift.open{
+  background:#fff;
+  color:#ff5f6d;
 }
-.show{
-  opacity:1;
-  transform:translateY(0);
+.gift span{
+  display:none;
+  position:absolute;
+  bottom:-70px;
+  width:170px;
+  background:#fff;
+  color:#ff5f6d;
+  padding:10px;
+  border-radius:15px;
+  font-size:14px;
 }
-.heart{
+.gift.open span{display:block}
+
+#nextBtn{
+  display:none;
+  margin-top:70px;
+  padding:15px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  background:#fff;
+  color:#ff5f6d;
+  cursor:pointer;
+}
+
+/* music button */
+#musicBtn{
   position:fixed;
-  bottom:-20px;
-  font-size:20px;
-  animation:float 6s linear infinite;
-}
-@keyframes float{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(-120vh);opacity:0;}
-}
-.final{
-  font-family:'Great Vibes', cursive;
-  font-size:4rem;
-  animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-  from{text-shadow:0 0 10px #fff;}
-  to{text-shadow:0 0 30px #ffebf0;}
+  bottom:20px;
+  right:20px;
+  background:#fff;
+  color:#ff5f6d;
+  border:none;
+  border-radius:50%;
+  width:55px;
+  height:55px;
+  font-size:22px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,.3);
 }
 </style>
 </head>
 
 <body>
 
-<section class="fade">
-  <h1>Hey Sunanda ❤️</h1>
-  <p>There’s something special I wanted to show you…</p>
-</section>
+<button id="musicBtn">🎵</button>
 
-<section class="fade">
-  <h1>You are my favourite feeling 🥺</h1>
-  <p>Every smile of yours makes my world brighter.</p>
-</section>
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8b1f7d4e.mp3">
+</audio>
 
-<section class="fade">
-  <h1>With you 💕</h1>
-  <p>Even ordinary moments become beautiful memories.</p>
-</section>
+<h1>Three little gifts for you 🎁<br>Open them slowly cutie 💕</h1>
 
-<section class="fade">
-  <h1 class="final">Happy Birthday Sunanda ❤️</h1>
-  <p style="margin-top:20px;">Always stay the same. Always be mine.</p>
-</section>
+<div class="gifts">
+  <div class="gift" onclick="openGift(this)">
+    🎁
+    <span>Cutiepie 💖</span>
+  </div>
+  <div class="gift" onclick="openGift(this)">
+    🎁
+    <span>My Puchku 🧸</span>
+  </div>
+  <div class="gift" onclick="openGift(this)">
+    🎁
+    <span>Cuteness Overloaded 😭❤️</span>
+  </div>
+</div>
+
+<button id="nextBtn" onclick="goNext()">Open Final Surprise ❤️</button>
 
 <script>
-const sections=document.querySelectorAll('.fade');
-window.addEventListener('scroll',()=>{
-  sections.forEach(sec=>{
-    const top=sec.getBoundingClientRect().top;
-    if(top<window.innerHeight-100){
-      sec.classList.add('show');
+let opened=0;
+function openGift(g){
+  if(!g.classList.contains("open")){
+    g.classList.add("open");
+    opened++;
+    if(opened===3){
+      document.getElementById("nextBtn").style.display="inline-block";
     }
-  })
-});
+  }
+}
 
-// floating hearts
-setInterval(()=>{
-  const heart=document.createElement('div');
-  heart.className='heart';
-  heart.innerHTML='❤️';
-  heart.style.left=Math.random()*100+'vw';
-  heart.style.animationDuration=(Math.random()*3+3)+'s';
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},300);
+// redirect
+function goNext(){
+  window.location.href="surprise.html";
+}
+
+// music
+const music=document.getElementById("bgm");
+const btn=document.getElementById("musicBtn");
+btn.onclick=()=>{
+  if(music.paused){
+    music.play();
+    btn.textContent="🔈";
+  }else{
+    music.pause();
+    btn.textContent="🎵";
+  }
+};
 </script>
 
 </body>
