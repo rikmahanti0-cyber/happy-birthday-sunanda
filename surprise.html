@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Sunanda ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(120deg,#ff758c,#ff7eb3);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+  text-align:center;
+  overflow:hidden;
+}
+h1{
+  font-size:4rem;
+  margin-bottom:20px;
+}
+p{
+  font-size:1.2rem;
+  max-width:600px;
+}
+.heart{
+  position:absolute;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* music button */
+#musicBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#fff;
+  color:#ff758c;
+  border:none;
+  border-radius:50%;
+  width:55px;
+  height:55px;
+  font-size:22px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+</style>
+</head>
+
+<body>
+
+<button id="musicBtn">🔈</button>
+
+<audio id="bgm" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8b1f7d4e.mp3">
+</audio>
+
+<h1>Happy Birthday Sunanda ❤️</h1>
+<p>
+You are my cutie, my puchku, my safe place 🥺  
+Today is special because **YOU** are special 💖  
+Always smiling. Always loved.
+</p>
+
+<script>
+// hearts
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},300);
+
+// music toggle
+const music=document.getElementById("bgm");
+const btn=document.getElementById("musicBtn");
+btn.onclick=()=>{
+  if(music.paused){
+    music.play();
+    btn.textContent="🔈";
+  }else{
+    music.pause();
+    btn.textContent="🎵";
+  }
+};
+</script>
+
+</body>
+</html>
