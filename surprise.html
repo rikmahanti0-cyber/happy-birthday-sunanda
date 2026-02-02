@@ -1,9 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Sunanda ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at top,#ffd6e8,#ff9aa2,#ff6f91);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Quicksand',sans-serif;
+  color:#fff;
+  overflow:hidden;
+}
+
+.card{
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(14px);
+  border-radius:32px;
+  padding:50px 40px;
+  text-align:center;
+  max-width:650px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+
+h1{
+  font-family:'Pacifico',cursive;
+  font-size:4rem;
+  margin-bottom:25px;
+}
+
 p{
   font-size:1.25rem;
   line-height:1.9;
 }
 
-/* hearts */
 .heart{
   position:absolute;
   bottom:-20px;
@@ -15,7 +52,6 @@ p{
   to{transform:translateY(-120vh);opacity:0}
 }
 
-/* music */
 #musicBtn{
   position:fixed;
   bottom:22px;
@@ -35,23 +71,33 @@ p{
 
 <body>
 
-<button id="musicBtn">🔈</button>
+<button id="musicBtn">🔊</button>
 
-<audio id="bgm" autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8b1f7d4e.mp3">
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/08/02/audio_1a7a7f8f25.mp3">
 </audio>
 
 <div class="card">
   <h1>Happy Birthday Sunanda ❤️</h1>
   <p>
-    You are not special just today…<br><br>
     You are special every single day 🥺<br><br>
     My cutie. My puchku. My favourite feeling 💖
   </p>
 </div>
 
 <script>
-// hearts
+const music=document.getElementById("bgm");
+const btn=document.getElementById("musicBtn");
+
+function startMusic(){
+  if(music.paused){
+    music.play().catch(()=>{});
+    btn.textContent="🔈";
+  }
+}
+btn.onclick=startMusic;
+document.body.onclick=startMusic;
+
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -60,21 +106,7 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
 },350);
-
-// music toggle
-const music=document.getElementById("bgm");
-const btn=document.getElementById("musicBtn");
-btn.onclick=()=>{
-  if(music.paused){
-    music.play();
-    btn.textContent="🔈";
-  }else{
-    music.pause();
-    btn.textContent="🎵";
-  }
-};
 </script>
 
 </body>
 </html>
-
