@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sunanda ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  background: linear-gradient(120deg,#ff758c,#ff7eb3);
+  color:white;
+  overflow-x:hidden;
+}
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+}
+h1{
+  font-size:3rem;
+}
+p{
+  font-size:1.2rem;
+  max-width:600px;
+}
+.fade{
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s ease;
+}
+.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(-120vh);opacity:0;}
+}
+.final{
+  font-family:'Great Vibes', cursive;
+  font-size:4rem;
+  animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 10px #fff;}
+  to{text-shadow:0 0 30px #ffebf0;}
+}
+</style>
+</head>
+
+<body>
+
+<section class="fade">
+  <h1>Hey Sunanda ❤️</h1>
+  <p>There’s something special I wanted to show you…</p>
+</section>
+
+<section class="fade">
+  <h1>You are my favourite feeling 🥺</h1>
+  <p>Every smile of yours makes my world brighter.</p>
+</section>
+
+<section class="fade">
+  <h1>With you 💕</h1>
+  <p>Even ordinary moments become beautiful memories.</p>
+</section>
+
+<section class="fade">
+  <h1 class="final">Happy Birthday Sunanda ❤️</h1>
+  <p style="margin-top:20px;">Always stay the same. Always be mine.</p>
+</section>
+
+<script>
+const sections=document.querySelectorAll('.fade');
+window.addEventListener('scroll',()=>{
+  sections.forEach(sec=>{
+    const top=sec.getBoundingClientRect().top;
+    if(top<window.innerHeight-100){
+      sec.classList.add('show');
+    }
+  })
+});
+
+// floating hearts
+setInterval(()=>{
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='❤️';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.animationDuration=(Math.random()*3+3)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},300);
+</script>
+
+</body>
+</html>
