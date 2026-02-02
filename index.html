@@ -2,155 +2,262 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You ❤️</title>
+<title>Only For You ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-  margin:0;
   height:100vh;
   background:radial-gradient(circle at top,#ffe6f0,#ff9aa2,#ff6f91);
+  font-family:'Quicksand',sans-serif;
+  color:#fff;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* CENTER */
+.center{
+  position:absolute;
+  inset:0;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  font-family:'Quicksand',sans-serif;
-  color:#fff;
-  text-align:center;
-  overflow:hidden;
+  padding:30px;
 }
 
-h1{
-  font-family:'Pacifico',cursive;
-  font-size:2.6rem;
-  margin-bottom:50px;
-}
+/* HIDDEN */
+.hidden{display:none}
 
-.gifts{
-  display:flex;
-  gap:50px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.gift{
-  width:140px;
-  height:140px;
-  background:linear-gradient(145deg,#ffd1dc,#ff8fab);
-  border-radius:28px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:52px;
+/* HEART LOCK */
+.lock{
+  font-size:80px;
   cursor:pointer;
-  position:relative;
-  box-shadow:0 25px 45px rgba(0,0,0,.25);
-  transition:.4s;
+  animation:pulse 1.5s infinite;
 }
-.gift:hover{transform:translateY(-10px) scale(1.05);}
-.gift.open{background:#fff;color:#ff5f7e;}
-
-.giftText{
-  position:absolute;
-  top:-85px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px) scale(.8);
-  opacity:0;
-  font-family:'Pacifico',cursive;
-  font-size:1.5rem;
-  white-space:nowrap;
-  color:#c9002b; /* RED TEXT */
-  text-shadow:0 6px 20px rgba(0,0,0,.35);
-  transition:.9s cubic-bezier(.19,1,.22,1);
-  pointer-events:none;
-}
-.gift.open .giftText{
-  opacity:1;
-  transform:translateX(-50%) translateY(0) scale(1);
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+  100%{transform:scale(1)}
 }
 
-#nextBtn{
-  display:none;
-  margin-top:70px;
-  padding:18px 40px;
+/* BUTTONS */
+.btn{
+  margin:12px;
+  padding:14px 30px;
   border:none;
-  border-radius:45px;
-  font-size:20px;
+  border-radius:40px;
   font-family:'Pacifico',cursive;
+  font-size:20px;
   background:#fff;
   color:#ff5f7e;
   cursor:pointer;
-  box-shadow:0 12px 35px rgba(0,0,0,.35);
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
+/* TEXT EFFECT */
+.big{
+  font-family:'Pacifico',cursive;
+  font-size:2.8rem;
+  margin-bottom:20px;
+}
+.text{
+  font-size:1.3rem;
+  line-height:1.8;
+}
+
+/* HOLD AREA */
+.hold{
+  margin-top:30px;
+  padding:20px;
+  border:2px dashed rgba(255,255,255,.6);
+  border-radius:20px;
+}
+
+/* SLIDER */
+input[type=range]{
+  width:260px;
+  margin-top:20px;
+}
+
+/* COUNTDOWN */
+.count{
+  font-family:'Pacifico';
+  font-size:5rem;
+}
+
+/* HEARTS */
+.heart{
+  position:absolute;
+  bottom:-20px;
+  font-size:22px;
+  animation:float 7s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* MUSIC */
 #musicBtn{
   position:fixed;
-  bottom:22px;
-  right:22px;
-  width:58px;
-  height:58px;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
   border:none;
   border-radius:50%;
   background:#fff;
   color:#ff5f7e;
-  font-size:24px;
+  font-size:22px;
   cursor:pointer;
-  box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 </style>
 </head>
 
-<body>
+<body onclick="startMusic()">
+
+<audio id="bgm" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2023/03/06/audio_96bdb1c97a.mp3">
+</audio>
 
 <button id="musicBtn">🔊</button>
 
-<audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/08/02/audio_1a7a7f8f25.mp3">
-</audio>
+<!-- SCENE 1 LOCK -->
+<div id="scene1" class="center">
+  <div class="big">Only Sunanda can open this…</div>
+  <div class="lock" onclick="unlock()">❤️</div>
+  <div class="text">Tap the heart 3 times</div>
+</div>
 
-<h1>Three little surprises for you 🎁</h1>
+<!-- SCENE 2 CHOICE -->
+<div id="scene2" class="center hidden">
+  <div class="big">What do you want first?</div>
+  <button class="btn" onclick="choice(1)">💌 A Sweet Message</button>
+  <button class="btn" onclick="choice(2)">🎁 A Surprise</button>
+  <button class="btn" onclick="choice(3)">💖 Something About You</button>
+</div>
 
-<div class="gifts">
-  <div class="gift" onclick="openGift(this)">🎁
-    <div class="giftText">Cutiepie 💖</div>
+<!-- SCENE 3 RESULT -->
+<div id="scene3" class="center hidden">
+  <div id="result" class="text"></div>
+</div>
+
+<!-- SCENE 4 HOLD -->
+<div id="scene4" class="center hidden">
+  <div class="big">Hold here ✨</div>
+  <div class="hold" ontouchstart="reveal()" onmousedown="reveal()">
+    Hold for 2 seconds
   </div>
-  <div class="gift" onclick="openGift(this)">🎁
-    <div class="giftText">My Puchku 🧸</div>
-  </div>
-  <div class="gift" onclick="openGift(this)">🎁
-    <div class="giftText">Cuteness Overloaded 😭❤️</div>
+  <div id="secret" class="text hidden">
+    You are my safest place 💖
   </div>
 </div>
 
-<button id="nextBtn" onclick="goNext()">Open Final Surprise ❤️</button>
+<!-- SCENE 5 SLIDER -->
+<div id="scene5" class="center hidden">
+  <div class="big">How much do I love you? 💓</div>
+  <input type="range" min="0" max="100" oninput="slider(this.value)">
+  <div id="loveText" class="text"></div>
+</div>
+
+<!-- SCENE 6 COUNTDOWN -->
+<div id="scene6" class="center hidden">
+  <div id="count" class="count">3</div>
+</div>
+
+<!-- SCENE 7 FINAL -->
+<div id="scene7" class="center hidden">
+  <div class="big">Happy Birthday Sunanda ❤️</div>
+  <div class="text">
+    And yes…<br>
+    this was made only for you.
+  </div>
+</div>
 
 <script>
-let opened=0;
-function openGift(g){
-  if(!g.classList.contains("open")){
-    g.classList.add("open");
-    opened++;
-    playMusic();          // SOUND STARTS HERE
-    if(opened===3){
-      document.getElementById("nextBtn").style.display="inline-block";
-    }
-  }
-}
-function goNext(){window.location.href="surprise.html";}
-
+let taps=0, started=false;
 const music=document.getElementById("bgm");
-const btn=document.getElementById("musicBtn");
 
-function playMusic(){
-  if(music.paused){
+function startMusic(){
+  if(!started){
     music.play().catch(()=>{});
-    btn.textContent="🔈";
+    started=true;
   }
 }
-btn.onclick=playMusic;
+
+function unlock(){
+  taps++;
+  if(taps===3){
+    show(2);
+  }
+}
+
+function choice(n){
+  show(3);
+  if(n===1){
+    result.innerHTML=
+    "I don’t know how to say this simply…<br><br>" +
+    "but you make normal days feel special,<br>" +
+    "and special days feel magical 💖";
+  }
+  if(n===2){
+    result.innerHTML="I think this was quite a surprise 😌❤️";
+  }
+  if(n===3){
+    result.innerHTML=
+    "Mai kaise yaha pe batau…<br>" +
+    "samne aana bolega 😌💗";
+  }
+  setTimeout(()=>show(4),3500);
+}
+
+function reveal(){
+  setTimeout(()=>{
+    secret.classList.remove("hidden");
+    setTimeout(()=>show(5),3000);
+  },2000);
+}
+
+function slider(v){
+  loveText.innerHTML=
+  v>80 ? "More than this slider allows 💖" : "";
+  if(v>80)setTimeout(()=>show(6),2000);
+}
+
+function countdown(){
+  let c=3;
+  const el=document.getElementById("count");
+  const i=setInterval(()=>{
+    c--;
+    el.innerHTML=c;
+    if(c===0){
+      clearInterval(i);
+      show(7);
+    }
+  },1000);
+}
+
+function show(n){
+  document.querySelectorAll(".center").forEach(s=>s.classList.add("hidden"));
+  document.getElementById("scene"+n).classList.remove("hidden");
+  if(n===6)countdown();
+}
+
+// HEARTS
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},400);
 </script>
 
 </body>
 </html>
+ 
