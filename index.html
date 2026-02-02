@@ -50,12 +50,8 @@ h1{
   transition:.4s;
 }
 .gift:hover{transform:translateY(-10px) scale(1.05);}
-.gift.open{
-  background:#fff;
-  color:#ff5f7e;
-}
+.gift.open{background:#fff;color:#ff5f7e;}
 
-/* floating text */
 .giftText{
   position:absolute;
   top:-85px;
@@ -65,7 +61,7 @@ h1{
   font-family:'Pacifico',cursive;
   font-size:1.5rem;
   white-space:nowrap;
-  color:#fff;
+  color:#c9002b; /* RED TEXT */
   text-shadow:0 6px 20px rgba(0,0,0,.35);
   transition:.9s cubic-bezier(.19,1,.22,1);
   pointer-events:none;
@@ -75,7 +71,6 @@ h1{
   transform:translateX(-50%) translateY(0) scale(1);
 }
 
-/* button */
 #nextBtn{
   display:none;
   margin-top:70px;
@@ -90,7 +85,6 @@ h1{
   box-shadow:0 12px 35px rgba(0,0,0,.35);
 }
 
-/* music */
 #musicBtn{
   position:fixed;
   bottom:22px;
@@ -110,25 +104,22 @@ h1{
 
 <body>
 
-<button id="musicBtn">🎵</button>
+<button id="musicBtn">🔊</button>
 
 <audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8b1f7d4e.mp3">
+  <source src="https://cdn.pixabay.com/audio/2022/08/02/audio_1a7a7f8f25.mp3">
 </audio>
 
 <h1>Three little surprises for you 🎁</h1>
 
 <div class="gifts">
-  <div class="gift" onclick="openGift(this)">
-    🎁
+  <div class="gift" onclick="openGift(this)">🎁
     <div class="giftText">Cutiepie 💖</div>
   </div>
-  <div class="gift" onclick="openGift(this)">
-    🎁
+  <div class="gift" onclick="openGift(this)">🎁
     <div class="giftText">My Puchku 🧸</div>
   </div>
-  <div class="gift" onclick="openGift(this)">
-    🎁
+  <div class="gift" onclick="openGift(this)">🎁
     <div class="giftText">Cuteness Overloaded 😭❤️</div>
   </div>
 </div>
@@ -141,27 +132,24 @@ function openGift(g){
   if(!g.classList.contains("open")){
     g.classList.add("open");
     opened++;
+    playMusic();          // SOUND STARTS HERE
     if(opened===3){
       document.getElementById("nextBtn").style.display="inline-block";
     }
   }
 }
-function goNext(){
-  window.location.href="surprise.html";
-}
+function goNext(){window.location.href="surprise.html";}
 
-// music toggle (browser-safe)
 const music=document.getElementById("bgm");
 const btn=document.getElementById("musicBtn");
-btn.onclick=()=>{
+
+function playMusic(){
   if(music.paused){
-    music.play();
+    music.play().catch(()=>{});
     btn.textContent="🔈";
-  }else{
-    music.pause();
-    btn.textContent="🎵";
   }
-};
+}
+btn.onclick=playMusic;
 </script>
 
 </body>
