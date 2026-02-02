@@ -9,16 +9,24 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
+/* ===== MAIN BACKGROUND (LAVENDER) ===== */
 body{
   height:100vh;
-  background:radial-gradient(circle at top,#ffe6f0,#ff9aa2,#ff6f91);
+  background:radial-gradient(circle at top,#f3e8ff,#e6d9ff,#d8c7ff);
   font-family:'Quicksand',sans-serif;
-  color:#fff;
+  color:#b00020; /* RED TEXT */
   overflow:hidden;
   text-align:center;
+  transition:background 1s ease;
 }
 
-/* CENTER */
+/* ===== BLACKOUT FOR COUNTDOWN ===== */
+.blackout{
+  background:#000 !important;
+}
+
+/* ===== CENTER LAYOUT ===== */
 .center{
   position:absolute;
   inset:0;
@@ -29,10 +37,22 @@ body{
   padding:30px;
 }
 
-/* HIDDEN */
 .hidden{display:none}
 
-/* HEART LOCK */
+/* ===== TEXT STYLES ===== */
+.big{
+  font-family:'Pacifico',cursive;
+  font-size:2.8rem;
+  margin-bottom:20px;
+  color:#b00020;
+}
+.text{
+  font-size:1.3rem;
+  line-height:1.8;
+  color:#b00020;
+}
+
+/* ===== LOCK ===== */
 .lock{
   font-size:80px;
   cursor:pointer;
@@ -44,52 +64,43 @@ body{
   100%{transform:scale(1)}
 }
 
-/* BUTTONS */
+/* ===== BUTTONS ===== */
 .btn{
   margin:12px;
-  padding:14px 30px;
+  padding:14px 32px;
   border:none;
   border-radius:40px;
   font-family:'Pacifico',cursive;
   font-size:20px;
   background:#fff;
-  color:#ff5f7e;
+  color:#b00020;
   cursor:pointer;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-/* TEXT EFFECT */
-.big{
-  font-family:'Pacifico',cursive;
-  font-size:2.8rem;
-  margin-bottom:20px;
-}
-.text{
-  font-size:1.3rem;
-  line-height:1.8;
-}
-
-/* HOLD AREA */
+/* ===== HOLD AREA ===== */
 .hold{
   margin-top:30px;
-  padding:20px;
-  border:2px dashed rgba(255,255,255,.6);
+  padding:20px 30px;
+  border:2px dashed #b00020;
   border-radius:20px;
+  font-size:1.1rem;
 }
 
-/* SLIDER */
+/* ===== SLIDER ===== */
 input[type=range]{
   width:260px;
-  margin-top:20px;
+  margin-top:25px;
 }
 
-/* COUNTDOWN */
+/* ===== COUNTDOWN ===== */
 .count{
-  font-family:'Pacifico';
+  font-family:'Pacifico',cursive;
   font-size:5rem;
+  color:#b00020;
 }
 
-/* HEARTS */
+/* ===== FLOATING HEARTS ===== */
 .heart{
   position:absolute;
   bottom:-20px;
@@ -101,7 +112,7 @@ input[type=range]{
   to{transform:translateY(-120vh);opacity:0}
 }
 
-/* MUSIC */
+/* ===== MUSIC BUTTON ===== */
 #musicBtn{
   position:fixed;
   bottom:20px;
@@ -111,9 +122,10 @@ input[type=range]{
   border:none;
   border-radius:50%;
   background:#fff;
-  color:#ff5f7e;
+  color:#b00020;
   font-size:22px;
   cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
 </style>
 </head>
@@ -126,14 +138,14 @@ input[type=range]{
 
 <button id="musicBtn">🔊</button>
 
-<!-- SCENE 1 LOCK -->
+<!-- SCENE 1 -->
 <div id="scene1" class="center">
   <div class="big">Only Sunanda can open this…</div>
   <div class="lock" onclick="unlock()">❤️</div>
   <div class="text">Tap the heart 3 times</div>
 </div>
 
-<!-- SCENE 2 CHOICE -->
+<!-- SCENE 2 -->
 <div id="scene2" class="center hidden">
   <div class="big">What do you want first?</div>
   <button class="btn" onclick="choice(1)">💌 A Sweet Message</button>
@@ -141,12 +153,12 @@ input[type=range]{
   <button class="btn" onclick="choice(3)">💖 Something About You</button>
 </div>
 
-<!-- SCENE 3 RESULT -->
+<!-- SCENE 3 -->
 <div id="scene3" class="center hidden">
   <div id="result" class="text"></div>
 </div>
 
-<!-- SCENE 4 HOLD -->
+<!-- SCENE 4 -->
 <div id="scene4" class="center hidden">
   <div class="big">Hold here ✨</div>
   <div class="hold" ontouchstart="reveal()" onmousedown="reveal()">
@@ -157,19 +169,19 @@ input[type=range]{
   </div>
 </div>
 
-<!-- SCENE 5 SLIDER -->
+<!-- SCENE 5 -->
 <div id="scene5" class="center hidden">
   <div class="big">How much do I love you? 💓</div>
   <input type="range" min="0" max="100" oninput="slider(this.value)">
   <div id="loveText" class="text"></div>
 </div>
 
-<!-- SCENE 6 COUNTDOWN -->
+<!-- SCENE 6 -->
 <div id="scene6" class="center hidden">
   <div id="count" class="count">3</div>
 </div>
 
-<!-- SCENE 7 FINAL -->
+<!-- SCENE 7 -->
 <div id="scene7" class="center hidden">
   <div class="big">Happy Birthday Sunanda ❤️</div>
   <div class="text">
@@ -223,19 +235,21 @@ function reveal(){
 }
 
 function slider(v){
-  loveText.innerHTML=
-  v>80 ? "More than this slider allows 💖" : "";
+  loveText.innerHTML = v>80 ? "More than this slider allows 💖" : "";
   if(v>80)setTimeout(()=>show(6),2000);
 }
 
 function countdown(){
   let c=3;
+  document.body.classList.add("blackout");
   const el=document.getElementById("count");
+
   const i=setInterval(()=>{
-    c--;
     el.innerHTML=c;
-    if(c===0){
+    c--;
+    if(c < 0){
       clearInterval(i);
+      document.body.classList.remove("blackout");
       show(7);
     }
   },1000);
@@ -247,7 +261,7 @@ function show(n){
   if(n===6)countdown();
 }
 
-// HEARTS
+/* HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -260,4 +274,3 @@ setInterval(()=>{
 
 </body>
 </html>
- 
